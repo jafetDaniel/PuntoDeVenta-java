@@ -23,8 +23,6 @@ public class ConfigController implements MouseListener{
        
     }
     
-    
-
     @Override
     public void mouseClicked(MouseEvent e) {
         
@@ -40,13 +38,67 @@ public class ConfigController implements MouseListener{
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        //cambiar de color (rojo) al pasar mouse sobre alguna opicion del menu
         if (e.getSource() == views.jlabelCategorias) {
             views.jPanelCatego.setBackground(new Color(255,51,51));
-        }
+        }else
+            if(e.getSource() == views.jLabelClientes){
+                views.jPanelClientes.setBackground(new Color(255,51,51));
+            }else
+            if(e.getSource() == views.jLabelConfig){
+                views.jPanelConfig.setBackground(new Color(255,51,51));
+            }else
+            if(e.getSource() == views.jLabelMedidas){
+                views.jPanelMedidas.setBackground(new Color(255,51,51));
+            }else
+            if(e.getSource() == views.jLabelNuevaCompra){
+                views.jPanelNuevaCompra.setBackground(new Color(255,51,51));
+            }else
+            if(e.getSource() == views.jLabelNuevaVenta){
+                views.jPanelNuevaVenta.setBackground(new Color(255,51,51));
+            }else
+            if(e.getSource() == views.jLabelProveedores){
+                views.jPanelProveedores.setBackground(new Color(255,51,51));
+            }else
+            if(e.getSource() == views.jLabelUsuarios){
+                views.jPanelUsuarios.setBackground(new Color(255,51,51));
+            }else
+            if(e.getSource() == views.jLabelProductos){
+                views.jPanelProductos.setBackground(new Color(255,51,51));
+            }
+        
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+         //quitar color al quitar mouse de alguna opcion del menu
+         if (e.getSource() == views.jlabelCategorias) {
+            views.jPanelCatego.setBackground(new Color(51,51,51));
+        }else
+            if(e.getSource() == views.jLabelClientes){
+                views.jPanelClientes.setBackground(new Color(51,51,51));
+            }else
+            if(e.getSource() == views.jLabelConfig){
+                views.jPanelConfig.setBackground(new Color(51,51,51));
+            }else
+            if(e.getSource() == views.jLabelMedidas){
+                views.jPanelMedidas.setBackground(new Color(51,51,51));
+            }else
+            if(e.getSource() == views.jLabelNuevaCompra){
+                views.jPanelNuevaCompra.setBackground(new Color(51,51,51));
+            }else
+            if(e.getSource() == views.jLabelNuevaVenta){
+                views.jPanelNuevaVenta.setBackground(new Color(51,51,51));
+            }else
+            if(e.getSource() == views.jLabelProveedores){
+                views.jPanelProveedores.setBackground(new Color(51,51,51));
+            }else
+            if(e.getSource() == views.jLabelUsuarios){
+                views.jPanelUsuarios.setBackground(new Color(51,51,51));
+            }else
+            if(e.getSource() == views.jLabelProductos){
+                views.jPanelProductos.setBackground(new Color(51,51,51));
+            }
     }
     
 }

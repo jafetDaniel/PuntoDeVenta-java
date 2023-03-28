@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -37,6 +39,50 @@ public class UsuariosDao {
             JOptionPane.showMessageDialog(null, e.toString());
         }
         return us;
+    }
+    
+    public boolean registrar(Usuarios us){
+       String sql ="INSERT INTO usuarios (usuario, nombre, clave, caja, rol) VALUES(?,?,?,?,?)";
+       
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, us.getUsuario());
+            ps.setString(2, us.getNombre());
+            ps.setString(3, us.getClave());
+            ps.setString(4, us.getCaja());
+            ps.setString(5, us.getRol());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+            return false;
+        }
+    }
+    
+    public List listausuarios(){
+        List<Usuarios> listaUser = new ArrayList();
+        String sql = "SELECT * FROM usuarios";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Usuarios us = new Usuarios();
+                us.setId(rs.getInt("id"));
+                us.setUsuario(rs.getString("usuario"));
+                us.setNombre(rs.getString("nombre"));
+                us.setCaja(rs.getString("caja"));
+                us.setRol(rs.getString("rol"));
+                us.setEstado(rs.getString("estado"));             
+                listaUser.add(us);  
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        return listaUser;
     }
     
     
