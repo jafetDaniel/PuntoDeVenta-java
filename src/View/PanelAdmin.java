@@ -1,8 +1,11 @@
 
 package View;
 
+import Controller.ClientesController;
 import Controller.ConfigController;
 import Controller.UsuariosController;
+import Model.Clientes;
+import Model.ClientesDao;
 import Model.Usuarios;
 import Model.UsuariosDao;
 
@@ -10,10 +13,17 @@ public class PanelAdmin extends javax.swing.JFrame {
     Usuarios us = new Usuarios();
     UsuariosDao usDao = new UsuariosDao();
     
+    Clientes cl = new Clientes();
+    ClientesDao clDao = new ClientesDao();
+    
     public PanelAdmin() {
         initComponents();
         ConfigController config  = new ConfigController(this);
         UsuariosController users  = new UsuariosController(us, usDao, this);
+        
+        ClientesController cliente  = new ClientesController(cl, clDao, this);
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -119,6 +129,8 @@ public class PanelAdmin extends javax.swing.JFrame {
         jComboCajaUsuario = new javax.swing.JComboBox<>();
         txtClaveUsuario = new javax.swing.JPasswordField();
         txtIdUser = new javax.swing.JTextField();
+        txtBuscarUser = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
         PaginadorUsuarios = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanelNuevaCategoria = new javax.swing.JPanel();
@@ -798,6 +810,7 @@ public class PanelAdmin extends javax.swing.JFrame {
             }
         ));
         jTableUsuarios.setComponentPopupMenu(jPopuUsuarios);
+        jTableUsuarios.setRowHeight(20);
         jScrollPane6.setViewportView(jTableUsuarios);
         if (jTableUsuarios.getColumnModel().getColumnCount() > 0) {
             jTableUsuarios.getColumnModel().getColumn(1).setHeaderValue("Usuario");
@@ -812,52 +825,64 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jLabelUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelUsuario.setText("Usuario");
-        jPanelNuevoUsuario.add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, 30));
+        jPanelNuevoUsuario.add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 30));
 
         txtUsuario.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoUsuario.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 180, 30));
+        jPanelNuevoUsuario.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 210, 30));
 
         jLabelContraseñaUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelContraseñaUsuario.setText("Contraseña");
-        jPanelNuevoUsuario.add(jLabelContraseñaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, 30));
+        jPanelNuevoUsuario.add(jLabelContraseñaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, 30));
 
         jLabelRolUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelRolUsuario.setText("Rol");
-        jPanelNuevoUsuario.add(jLabelRolUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
+        jPanelNuevoUsuario.add(jLabelRolUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 110, 30));
 
         btnNuevoUsuario.setBackground(new java.awt.Color(0, 0, 0));
         btnNuevoUsuario.setText("Nuevo");
         btnNuevoUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoUsuario.add(btnNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 90, 30));
+        jPanelNuevoUsuario.add(btnNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 90, 30));
 
         btnModificarUsuario.setBackground(new java.awt.Color(0, 0, 0));
         btnModificarUsuario.setText("Modificar");
         btnModificarUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoUsuario.add(btnModificarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 90, 30));
+        jPanelNuevoUsuario.add(btnModificarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 90, 30));
 
         btnRegistrarUsuario.setBackground(new java.awt.Color(0, 0, 0));
         btnRegistrarUsuario.setText("Registrar");
         btnRegistrarUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoUsuario.add(btnRegistrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 90, 30));
+        jPanelNuevoUsuario.add(btnRegistrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 90, 30));
 
         txtNombreUsuario.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoUsuario.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 180, 30));
+        jPanelNuevoUsuario.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 210, 30));
 
         jLabelNombreUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelNombreUsuario.setText("Nombre");
-        jPanelNuevoUsuario.add(jLabelNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 30));
+        jPanelNuevoUsuario.add(jLabelNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 30));
 
         jLabelCajaUsuario1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelCajaUsuario1.setText("Caja");
-        jPanelNuevoUsuario.add(jLabelCajaUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 110, 30));
+        jPanelNuevoUsuario.add(jLabelCajaUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 110, 30));
 
         jComboRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador" }));
-        jPanelNuevoUsuario.add(jComboRolUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 180, 30));
+        jPanelNuevoUsuario.add(jComboRolUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 180, 30));
 
         jComboCajaUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General" }));
-        jPanelNuevoUsuario.add(jComboCajaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 180, 30));
-        jPanelNuevoUsuario.add(txtClaveUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 180, 30));
-        jPanelNuevoUsuario.add(txtIdUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 60, -1));
+        jPanelNuevoUsuario.add(jComboCajaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 180, 30));
+
+        txtClaveUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveUsuarioActionPerformed(evt);
+            }
+        });
+        jPanelNuevoUsuario.add(txtClaveUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 210, 30));
+        jPanelNuevoUsuario.add(txtIdUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 70, -1));
+
+        txtBuscarUser.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanelNuevoUsuario.add(txtBuscarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 250, 30));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/lupa.png"))); // NOI18N
+        jPanelNuevoUsuario.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 40, 30));
 
         PaginadorUsuarios.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1485,12 +1510,16 @@ public class PanelAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCambioNCActionPerformed
 
+    private void txtClaveUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PaginadoCompras;
     private javax.swing.JPanel PaginadoVentas;
     private javax.swing.JPanel PaginadorCategorias;
-    private javax.swing.JPanel PaginadorCliente;
+    public javax.swing.JPanel PaginadorCliente;
     private javax.swing.JPanel PaginadorMedidas;
     private javax.swing.JPanel PaginadorPro;
     private javax.swing.JPanel PaginadorProveedor;
@@ -1498,7 +1527,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonTextDown btnGenerarNC;
     private org.edisoncor.gui.button.ButtonTextDown btnGenerarNV;
     private org.edisoncor.gui.button.ButtonTextDown btnModificarCategoria;
-    private org.edisoncor.gui.button.ButtonTextDown btnModificarCliente;
+    public org.edisoncor.gui.button.ButtonTextDown btnModificarCliente;
     private org.edisoncor.gui.button.ButtonTextDown btnModificarEmpresa;
     private org.edisoncor.gui.button.ButtonTextDown btnModificarMedida;
     private org.edisoncor.gui.button.ButtonTextDown btnModificarPro;
@@ -1506,12 +1535,12 @@ public class PanelAdmin extends javax.swing.JFrame {
     public org.edisoncor.gui.button.ButtonTextDown btnModificarUsuario;
     private org.edisoncor.gui.button.ButtonTextDown btnNuevaCategoria;
     private org.edisoncor.gui.button.ButtonTextDown btnNuevaMedida;
-    private org.edisoncor.gui.button.ButtonTextDown btnNuevoCliente;
+    public org.edisoncor.gui.button.ButtonTextDown btnNuevoCliente;
     private org.edisoncor.gui.button.ButtonTextDown btnNuevoPro;
     private org.edisoncor.gui.button.ButtonTextDown btnNuevoProveedor;
     public org.edisoncor.gui.button.ButtonTextDown btnNuevoUsuario;
     private org.edisoncor.gui.button.ButtonTextDown btnRegistrarCategoria;
-    private org.edisoncor.gui.button.ButtonTextDown btnRegistrarCliente;
+    public org.edisoncor.gui.button.ButtonTextDown btnRegistrarCliente;
     private org.edisoncor.gui.button.ButtonTextDown btnRegistrarMedida;
     private org.edisoncor.gui.button.ButtonTextDown btnRegistrarPro;
     private org.edisoncor.gui.button.ButtonTextDown btnRegistrarProveedor;
@@ -1539,6 +1568,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1583,8 +1613,8 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTotalPagarNV;
     private javax.swing.JLabel jLabelUsuario;
     public javax.swing.JLabel jLabelUsuarios;
-    private javax.swing.JMenuItem jMenuEliminarUser;
-    private javax.swing.JMenuItem jMenuReingresarUser;
+    public javax.swing.JMenuItem jMenuEliminarUser;
+    public javax.swing.JMenuItem jMenuReingresarUser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1632,7 +1662,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTableCategorias;
-    private javax.swing.JTable jTableClientes;
+    public javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableCompras;
     private javax.swing.JTable jTableMedidas;
     private javax.swing.JTable jTableNuevaCompra;
@@ -1644,6 +1674,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JLabel jlabelCategorias;
     private org.edisoncor.gui.tabbedPane.TabbedPaneHeader tabbedPaneHeader;
     private org.edisoncor.gui.textField.TextFieldRoundBackground txtBuscar;
+    public javax.swing.JTextField txtBuscarUser;
     private javax.swing.JTextField txtCambioNC;
     private javax.swing.JTextField txtCambioNV;
     private javax.swing.JTextField txtCantNC;
@@ -1653,13 +1684,13 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodNV;
     private javax.swing.JTextField txtCodigoPro;
     private javax.swing.JTextField txtDescripcionPro;
-    private javax.swing.JTextPane txtDireccionCliente;
+    public javax.swing.JTextPane txtDireccionCliente;
     private javax.swing.JTextPane txtDireccionEmpresa;
     private javax.swing.JTextPane txtDireccionProveedor;
     public javax.swing.JTextField txtIdUser;
     private javax.swing.JTextPane txtMensajeEmpresa;
     private javax.swing.JTextField txtNombreCategoria;
-    private javax.swing.JTextField txtNombreCliente;
+    public javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNombreCortoMedida;
     private javax.swing.JTextField txtNombreEmpresa;
     private javax.swing.JTextField txtNombreMedida;
@@ -1676,7 +1707,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtRucEmpresa;
     private javax.swing.JTextField txtRucProveedor;
     private javax.swing.JTextField txtStockNV;
-    private javax.swing.JTextField txtTelefonoCliente;
+    public javax.swing.JTextField txtTelefonoCliente;
     private javax.swing.JTextField txtTelefonoEmpresa;
     private javax.swing.JTextField txtTelefonoProveedor;
     private javax.swing.JTextField txtTotalNC;

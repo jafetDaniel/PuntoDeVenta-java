@@ -1,17 +1,22 @@
 package Controller;
 
+import Model.Tables;
 import Model.Usuarios;
 import Model.UsuariosDao;
 import View.PanelAdmin;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
-public class UsuariosController implements ActionListener, MouseListener{
+public class UsuariosController implements ActionListener, MouseListener, KeyListener{
     private Usuarios us;
     private UsuariosDao usDao;
     private PanelAdmin views;
@@ -23,13 +28,22 @@ public class UsuariosController implements ActionListener, MouseListener{
         this.usDao = usDao;
         this.views = views;
         this.views.btnRegistrarUsuario.addActionListener(this);
+        this.views.btnModificarUsuario.addActionListener(this);
+        this.views.btnNuevoUsuario.addActionListener(this);
+        
+        this.views.jMenuEliminarUser.addActionListener(this);
+        this.views.jMenuReingresarUser.addActionListener(this);
+        
         this.views.jTableUsuarios.addMouseListener(this);
+        
+        this.views.txtBuscarUser.addKeyListener(this);
+        
         listarUsuarios();
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == views.btnRegistrarUsuario) {
+        if (e.getSource() == views.btnRegistrarUsuario) { //si se presiona el boton registrar
             if (views.txtUsuario.getText().equals("")
                     || views.txtNombreUsuario.getText().equals("")
                     || String.valueOf(views.txtClaveUsuario.getPassword()).equals("")) {
@@ -43,16 +57,77 @@ public class UsuariosController implements ActionListener, MouseListener{
                 us.setRol(views.jComboRolUsuario.getSelectedItem().toString());
 
                 if (usDao.registrar(us)) { //registrar usuario
+                    limpiarTable();
+                    listarUsuarios();
+                    limpiar();
                     JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al regitrar usuario");
                 }
             }
+        } else if (e.getSource() == views.btnModificarUsuario) { //si se presiona el boton modificar
+            if (views.txtUsuario.getText().equals("")
+                    || views.txtNombreUsuario.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Campos incompletos");
+            } else {
+
+                us.setUsuario(views.txtUsuario.getText());
+                us.setNombre(views.txtNombreUsuario.getText());
+                us.setCaja(views.jComboCajaUsuario.getSelectedItem().toString());
+                us.setRol(views.jComboRolUsuario.getSelectedItem().toString());
+                us.setId(Integer.parseInt(views.txtIdUser.getText()));
+
+                if (usDao.modificar(us)) { //modificar usuario
+                    limpiarTable();
+                    listarUsuarios();
+                    limpiar();
+                    JOptionPane.showMessageDialog(null, "Usuario modificado exitosamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al modifiar usuario");
+                }
+            }
+        } else if (e.getSource() == views.jMenuEliminarUser) {//si se presiona el boton eliminar
+            if (views.txtIdUser.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Seleccione una Fila para eliminar");
+            } else {
+                int id = Integer.parseInt(views.txtIdUser.getText());
+                if (usDao.accion("inactivo", id)) {
+                     limpiarTable();
+                     listarUsuarios();
+                     limpiar();
+                    JOptionPane.showMessageDialog(null, "Usuario Eliminado");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al eliminar Usuario");
+                }
+
+            }
+        }else if (e.getSource() == views.jMenuReingresarUser) {//si se presiono reingresar usuario
+            if (views.txtIdUser.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Seleccione una Fila para reingresar");
+            } else {
+                int id = Integer.parseInt(views.txtIdUser.getText());
+                
+                if (usDao.accion("activo", id)) {
+                    limpiarTable();
+                    listarUsuarios();
+                    limpiar();
+                    JOptionPane.showMessageDialog(null, "Usuario reingresado");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al reingresar");
+                }
+
+            }
+        }else{
+            limpiar();
         }
+
     }
     
     public void listarUsuarios(){
-        List<Usuarios> lista = usDao.listausuarios();
+        Tables color = new Tables();
+        views.jTableUsuarios.setDefaultRenderer(views.jTableUsuarios.getColumnClass(0), color);
+        
+        List<Usuarios> lista = usDao.listaUsuarios(views.txtBuscarUser.getText());
         modelo = (DefaultTableModel) views.jTableUsuarios.getModel();
         Object[] ob = new Object[6];
         
@@ -66,11 +141,24 @@ public class UsuariosController implements ActionListener, MouseListener{
            modelo.addRow(ob);
         }
         views.jTableUsuarios.setModel(modelo);
+        
+        JTableHeader header = views.jTableUsuarios.getTableHeader();
+        header.setOpaque(false);
+        header.setBackground(Color.blue);
+        header.setForeground(Color.white);
+        
+    }
+    
+    public void limpiarTable(){
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i = i - 1;
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == views.jTableUsuarios) { //para mmostrar datos en form al seleccioanr un usuario en la tabla
+        if (e.getSource() == views.jTableUsuarios) { //para mostrar datos en form al seleccioanr un usuario en la tabla
             int fila = views.jTableUsuarios.rowAtPoint(e.getPoint());
             views.txtIdUser.setText(views.jTableUsuarios.getValueAt(fila, 0).toString());
             views.txtUsuario.setText(views.jTableUsuarios.getValueAt(fila, 1).toString());
@@ -79,6 +167,7 @@ public class UsuariosController implements ActionListener, MouseListener{
             views.jComboRolUsuario.setSelectedItem(views.jTableUsuarios.getValueAt(fila, 4).toString());
             
             views.txtClaveUsuario.setEnabled(false); //deshabilitar field contraseña
+             views.txtIdUser.setEnabled(false); //deshabilitar field id
             views.btnRegistrarUsuario.setEnabled(false); //deshabilitar boton registrar
         } else {
         }
@@ -98,6 +187,34 @@ public class UsuariosController implements ActionListener, MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+       
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getSource() == views.txtBuscarUser) {
+            limpiarTable();
+            listarUsuarios();
+        } else {
+        }
+    }
+    
+    private void limpiar(){
+        views.txtUsuario.setText("");
+        views.txtNombreUsuario.setText("");
+        views.txtClaveUsuario.setText("");
+        
+        views.txtIdUser.setText("");
+        views.txtClaveUsuario.setEnabled(true);
     }
     
     
