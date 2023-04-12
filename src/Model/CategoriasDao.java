@@ -8,23 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class ClientesDao {
+public class CategoriasDao {
+    
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
     
     
-    public boolean registrar(Clientes cl){
-       String sql ="INSERT INTO clientes (nombre, telefono, direccion) VALUES(?,?,?)";
+    public boolean registrar(Categorias cat){
+       String sql ="INSERT INTO categorias (nombre) VALUES(?)";
        
         try {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
 
-            ps.setString(1, cl.getNombre());
-            ps.setString(2, cl.getTelefono());
-            ps.setString(3, cl.getDireccion());
+            ps.setString(1, cat.getNombre());
             
             ps.execute();
             return true;
@@ -35,10 +34,10 @@ public class ClientesDao {
     }
     
     
-    public List listaClientes(String valor){
-        List<Clientes> listaClient = new ArrayList();
-        String sql = "SELECT * FROM clientes ORDER BY estado ASC";
-        String buscar = "SELECT * FROM clientes WHERE nombre LIKE '%"+valor+"%' OR telefono LIKE '%"+valor+"%'";
+    public List listaCategorias(String valor){
+        List<Categorias> listaCatego = new ArrayList();
+        String sql = "SELECT * FROM categorias ORDER BY estado ASC";
+        String buscar = "SELECT * FROM categorias WHERE nombre LIKE '%"+valor+"%'";
         
         try {
             con = cn.getConexion();
@@ -53,32 +52,28 @@ public class ClientesDao {
            
             
             while (rs.next()) {
-                Clientes cl = new Clientes();
-                cl.setId(rs.getInt("id"));
-                cl.setNombre(rs.getString("nombre"));
-                cl.setTelefono(rs.getString("telefono"));
-                cl.setDireccion(rs.getString("direccion"));
-                cl.setEstado(rs.getString("estado"));             
-                listaClient.add(cl);  
+                Categorias cat = new Categorias();
+                cat.setId(rs.getInt("id"));
+                cat.setNombre(rs.getString("nombre"));
+                cat.setEstado(rs.getString("estado"));             
+                listaCatego.add(cat);  
             }
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
-        return listaClient;
+        return listaCatego;
     }
     
-    public boolean modificar (Clientes cl){
-       String sql ="UPDATE clientes SET nombre = ?, telefono = ?, direccion = ? WHERE id = ?";
+    public boolean modificar (Categorias cat){
+       String sql ="UPDATE categorias SET nombre = ? WHERE id = ?";
        
         try {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
             
-            ps.setString(1, cl.getNombre());
-            ps.setString(2, cl.getTelefono());
-            ps.setString(3, cl.getDireccion());
-            ps.setInt(4, cl.getId());
+            ps.setString(1, cat.getNombre());         
+            ps.setInt(2, cat.getId());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -88,7 +83,7 @@ public class ClientesDao {
     }
     
     public boolean accion(String estado, int id){
-        String sql = "UPDATE clientes SET estado = ? WHERE id = ?";
+        String sql = "UPDATE categorias SET estado = ? WHERE id = ?";
         try {
              con = cn.getConexion();
              ps = con.prepareStatement(sql);
@@ -104,4 +99,5 @@ public class ClientesDao {
             return false;
         }
     }
+    
 }

@@ -38,6 +38,8 @@ public class UsuariosController implements ActionListener, MouseListener, KeyLis
         
         this.views.txtBuscarUser.addKeyListener(this);
         
+        this.views.jLabelUsuarios.addMouseListener(this);
+        
         listarUsuarios();
     }
     
@@ -169,7 +171,9 @@ public class UsuariosController implements ActionListener, MouseListener, KeyLis
             views.txtClaveUsuario.setEnabled(false); //deshabilitar field contraseña
              views.txtIdUser.setEnabled(false); //deshabilitar field id
             views.btnRegistrarUsuario.setEnabled(false); //deshabilitar boton registrar
-        } else {
+            
+        }else if(e.getSource() == views.jLabelUsuarios){ //se selecciono la opcion usuarios en el menu lateral
+            views.tabbedPaneHeader.setSelectedIndex(3);
         }
     }
 
