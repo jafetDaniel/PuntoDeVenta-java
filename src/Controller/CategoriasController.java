@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Categorias;
 import Model.CategoriasDao;
+import Model.Combo;
 import Model.Tables;
 import View.PanelAdmin;
 import java.awt.Color;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
 public class CategoriasController implements ActionListener, MouseListener, KeyListener{
@@ -39,9 +41,10 @@ public class CategoriasController implements ActionListener, MouseListener, KeyL
         
         this.views.txtBuscarCategoria.addKeyListener(this);
         
-        this.views.jlabelCategorias.addMouseListener(this);
+        this.views.jlabelCategorias.addMouseListener(this);     
         
-        listarCategorias();
+        llenarCategoria();
+        AutoCompleteDecorator.decorate(views.jComboCategoriaPro);
     }
 
     @Override
@@ -165,6 +168,8 @@ public class CategoriasController implements ActionListener, MouseListener, KeyL
              
         }else if(e.getSource() == views.jlabelCategorias){ //se selecciono la opcion categorias en el menu lateral
             views.tabbedPaneHeader.setSelectedIndex(4);
+            limpiarTable();
+            listarCategorias();
         }
     }
 
@@ -204,6 +209,16 @@ public class CategoriasController implements ActionListener, MouseListener, KeyL
             listarCategorias();
         } else {
         }
+    }
+    
+    private void llenarCategoria(){
+        List<Categorias> lista = catDao.listaCategorias(views.txtBuscarCategoria.getText());
+       
+        for (int i = 0; i < lista.size(); i++) {
+           int id = lista.get(i).getId();
+           String nombre = lista.get(i).getNombre();   
+           views.jComboCategoriaPro.addItem(new Combo(id, nombre));          
+        }  
     }
     
     

@@ -25,7 +25,9 @@ public class ConfigController implements MouseListener{
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        if(e.getSource() == views.jLabelConfig){ //se selecciono la opcion config en el menu lateral
+            views.tabbedPaneHeader.setSelectedIndex(9);
+        }
     }
 
     @Override

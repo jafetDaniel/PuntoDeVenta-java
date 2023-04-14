@@ -40,8 +40,7 @@ public class ClientesController implements ActionListener, MouseListener, KeyLis
         this.views.txtBuscarCliente.addKeyListener(this);
         
         this.views.jLabelClientes.addMouseListener(this);
-        
-        listarClientes();
+
     }
 
     @Override
@@ -178,6 +177,8 @@ public class ClientesController implements ActionListener, MouseListener, KeyLis
              
         }else if(e.getSource() == views.jLabelClientes){ //se selecciono la opcion clientes en el menu lateral
             views.tabbedPaneHeader.setSelectedIndex(1);
+            limpiarTable();
+            listarClientes();
         }
     }
 

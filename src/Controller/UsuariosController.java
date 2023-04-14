@@ -40,7 +40,6 @@ public class UsuariosController implements ActionListener, MouseListener, KeyLis
         
         this.views.jLabelUsuarios.addMouseListener(this);
         
-        listarUsuarios();
     }
     
     @Override
@@ -174,6 +173,8 @@ public class UsuariosController implements ActionListener, MouseListener, KeyLis
             
         }else if(e.getSource() == views.jLabelUsuarios){ //se selecciono la opcion usuarios en el menu lateral
             views.tabbedPaneHeader.setSelectedIndex(3);
+             limpiarTable();
+             listarUsuarios();
         }
     }
 

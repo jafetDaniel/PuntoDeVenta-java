@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Combo;
 import Model.Medidas;
 import Model.MedidasDao;
 import Model.Tables;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class MedidasController implements ActionListener, MouseListener, KeyListener{
     private Medidas med;
@@ -40,7 +42,8 @@ public class MedidasController implements ActionListener, MouseListener, KeyList
         
         this.views.jLabelMedidas.addMouseListener(this);
         
-        listarMedidas();
+        llenarMedida();
+        AutoCompleteDecorator.decorate(views.jComboMedidaPro);
     }
 
     @Override
@@ -170,6 +173,8 @@ public class MedidasController implements ActionListener, MouseListener, KeyList
              
         }else if(e.getSource() == views.jLabelMedidas){ //se selecciono la opcion medidas en el menu lateral
             views.tabbedPaneHeader.setSelectedIndex(5);
+            limpiarTable();
+            listarMedidas();
         }
     }
 
@@ -210,6 +215,16 @@ public class MedidasController implements ActionListener, MouseListener, KeyList
             listarMedidas();
         } else {
         }
+    }
+    
+    private void llenarMedida(){
+        List<Medidas> lista = medDao.listaMedidas(views.txtBuscarMedida.getText());
+       
+        for (int i = 0; i < lista.size(); i++) {
+           int id = lista.get(i).getId();
+           String nombre = lista.get(i).getNombre();   
+           views.jComboMedidaPro.addItem(new Combo(id, nombre));          
+        }  
     }
     
 }

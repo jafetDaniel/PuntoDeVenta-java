@@ -5,6 +5,8 @@ import Controller.CategoriasController;
 import Controller.ClientesController;
 import Controller.ConfigController;
 import Controller.MedidasController;
+import Controller.ProductosController;
+import Controller.ProveedoresController;
 import Controller.UsuariosController;
 import Model.Categorias;
 import Model.CategoriasDao;
@@ -12,6 +14,10 @@ import Model.Clientes;
 import Model.ClientesDao;
 import Model.Medidas;
 import Model.MedidasDao;
+import Model.Productos;
+import Model.ProductosDao;
+import Model.Proveedores;
+import Model.ProveedoresDao;
 import Model.Usuarios;
 import Model.UsuariosDao;
 
@@ -28,6 +34,12 @@ public class PanelAdmin extends javax.swing.JFrame {
     Medidas med = new Medidas();
     MedidasDao medDao = new MedidasDao();
     
+    Proveedores prov = new Proveedores();
+    ProveedoresDao provDao = new ProveedoresDao();
+    
+    Productos prod = new Productos();
+    ProductosDao prodDao = new ProductosDao();
+    
     public PanelAdmin() {
         initComponents();
         ConfigController config  = new ConfigController(this);
@@ -36,6 +48,8 @@ public class PanelAdmin extends javax.swing.JFrame {
         ClientesController cliente  = new ClientesController(cl, clDao, this);
         CategoriasController categoria  = new CategoriasController(cat, catDao, this);
         MedidasController medida  = new MedidasController(med, medDao, this);
+        ProveedoresController proveedor  = new ProveedoresController(prov, provDao, this);
+        ProductosController producto  = new ProductosController(prod, prodDao, this);
         
     }
 
@@ -55,6 +69,12 @@ public class PanelAdmin extends javax.swing.JFrame {
         jPopupMedidas = new javax.swing.JPopupMenu();
         jMenuEliminarMedida = new javax.swing.JMenuItem();
         jMenuReingresarMedida = new javax.swing.JMenuItem();
+        jPopupProveedores = new javax.swing.JPopupMenu();
+        jMenuEliminarProveedor = new javax.swing.JMenuItem();
+        jMenuReingresarProveedor = new javax.swing.JMenuItem();
+        jPopupProductos = new javax.swing.JPopupMenu();
+        jMenuEliminarPro = new javax.swing.JMenuItem();
+        jMenuReingresarPro = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanelCatego = new javax.swing.JPanel();
         jlabelCategorias = new javax.swing.JLabel();
@@ -98,6 +118,11 @@ public class PanelAdmin extends javax.swing.JFrame {
         btnNuevoPro = new org.edisoncor.gui.button.ButtonTextDown();
         btnModificarPro = new org.edisoncor.gui.button.ButtonTextDown();
         btnRegistrarPro = new org.edisoncor.gui.button.ButtonTextDown();
+        jLabel28 = new javax.swing.JLabel();
+        txtBuscarPro = new javax.swing.JTextField();
+        txtIdPro = new javax.swing.JTextField();
+        jLabelCantidad = new javax.swing.JLabel();
+        txtCantidadPro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePro = new javax.swing.JTable();
         PaginadorPro = new javax.swing.JPanel();
@@ -135,6 +160,9 @@ public class PanelAdmin extends javax.swing.JFrame {
         txtDireccionProveedor = new javax.swing.JTextPane();
         txtNombreProveedor = new javax.swing.JTextField();
         jLabelNombreProveedor = new javax.swing.JLabel();
+        txtIdProveedor = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        txtBuscarProveedor = new javax.swing.JTextField();
         PaginadorProveedor = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -290,6 +318,22 @@ public class PanelAdmin extends javax.swing.JFrame {
         jMenuReingresarMedida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/exchange.png"))); // NOI18N
         jMenuReingresarMedida.setText("Reingresar");
         jPopupMedidas.add(jMenuReingresarMedida);
+
+        jMenuEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
+        jMenuEliminarProveedor.setText("Eliminar");
+        jPopupProveedores.add(jMenuEliminarProveedor);
+
+        jMenuReingresarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/exchange.png"))); // NOI18N
+        jMenuReingresarProveedor.setText("Reingresar");
+        jPopupProveedores.add(jMenuReingresarProveedor);
+
+        jMenuEliminarPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
+        jMenuEliminarPro.setText("Eliminar");
+        jPopupProductos.add(jMenuEliminarPro);
+
+        jMenuReingresarPro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/exchange.png"))); // NOI18N
+        jMenuReingresarPro.setText("Reingresar");
+        jPopupProductos.add(jMenuReingresarPro);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -527,14 +571,14 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jLabelCodigo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelCodigo.setText("Código");
-        jPanelNuevoProducto.add(jLabelCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, 30));
+        jPanelNuevoProducto.add(jLabelCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 80, 30));
 
         txtCodigoPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoProducto.add(txtCodigoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 180, 30));
+        jPanelNuevoProducto.add(txtCodigoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 180, 30));
 
         jLabelDescripcion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelDescripcion.setText("Descripción");
-        jPanelNuevoProducto.add(jLabelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 90, 30));
+        jPanelNuevoProducto.add(jLabelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 90, 30));
 
         txtDescripcionPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtDescripcionPro.addActionListener(new java.awt.event.ActionListener() {
@@ -542,11 +586,11 @@ public class PanelAdmin extends javax.swing.JFrame {
                 txtDescripcionProActionPerformed(evt);
             }
         });
-        jPanelNuevoProducto.add(txtDescripcionPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 180, 30));
+        jPanelNuevoProducto.add(txtDescripcionPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 180, 30));
 
         jLabelCategoria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelCategoria.setText("Categoría");
-        jPanelNuevoProducto.add(jLabelCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 80, 30));
+        jPanelNuevoProducto.add(jLabelCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 80, 30));
 
         txtPrecioCompraPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtPrecioCompraPro.addActionListener(new java.awt.event.ActionListener() {
@@ -554,55 +598,75 @@ public class PanelAdmin extends javax.swing.JFrame {
                 txtPrecioCompraProActionPerformed(evt);
             }
         });
-        jPanelNuevoProducto.add(txtPrecioCompraPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 180, 30));
+        jPanelNuevoProducto.add(txtPrecioCompraPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 180, 30));
 
         jLabelPrecioVenta.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelPrecioVenta.setText("Precio Venta");
-        jPanelNuevoProducto.add(jLabelPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 110, 30));
+        jPanelNuevoProducto.add(jLabelPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 110, 30));
 
         jLabelPrecioCompra.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelPrecioCompra.setText("Precio Compra");
-        jPanelNuevoProducto.add(jLabelPrecioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, 30));
+        jPanelNuevoProducto.add(jLabelPrecioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 120, 30));
 
         jLabelMedida.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelMedida.setText("Medida");
-        jPanelNuevoProducto.add(jLabelMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 80, 30));
+        jPanelNuevoProducto.add(jLabelMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 80, 30));
 
         jLabelProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelProveedor.setText("Proveedor");
-        jPanelNuevoProducto.add(jLabelProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 80, 30));
+        jPanelNuevoProducto.add(jLabelProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 80, 30));
 
         txtPrecioVentaPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoProducto.add(txtPrecioVentaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 180, 30));
+        jPanelNuevoProducto.add(txtPrecioVentaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 180, 30));
 
+        jComboMedidaPro.setEditable(true);
         jComboMedidaPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoProducto.add(jComboMedidaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 180, 30));
+        jPanelNuevoProducto.add(jComboMedidaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 410, 180, 30));
 
+        jComboCategoriaPro.setEditable(true);
         jComboCategoriaPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoProducto.add(jComboCategoriaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 180, 30));
+        jPanelNuevoProducto.add(jComboCategoriaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 460, 180, 30));
 
+        jComboProveedorPro.setEditable(true);
         jComboProveedorPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jComboProveedorPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboProveedorProActionPerformed(evt);
             }
         });
-        jPanelNuevoProducto.add(jComboProveedorPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 180, 30));
+        jPanelNuevoProducto.add(jComboProveedorPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, 180, 30));
 
         btnNuevoPro.setBackground(new java.awt.Color(0, 0, 0));
         btnNuevoPro.setText("Nuevo");
         btnNuevoPro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoProducto.add(btnNuevoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 90, 30));
+        jPanelNuevoProducto.add(btnNuevoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 90, 30));
 
         btnModificarPro.setBackground(new java.awt.Color(0, 0, 0));
         btnModificarPro.setText("Modificar");
         btnModificarPro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoProducto.add(btnModificarPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 90, 30));
+        jPanelNuevoProducto.add(btnModificarPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 540, 90, 30));
 
         btnRegistrarPro.setBackground(new java.awt.Color(0, 0, 0));
         btnRegistrarPro.setText("Registrar");
         btnRegistrarPro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoProducto.add(btnRegistrarPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 90, 30));
+        jPanelNuevoProducto.add(btnRegistrarPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 540, 90, 30));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/lupa.png"))); // NOI18N
+        jPanelNuevoProducto.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, 30));
+        jPanelNuevoProducto.add(txtBuscarPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 220, 30));
+        jPanelNuevoProducto.add(txtIdPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 500, 140, -1));
+
+        jLabelCantidad.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabelCantidad.setText("Cantidad");
+        jPanelNuevoProducto.add(jLabelCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, 30));
+
+        txtCantidadPro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txtCantidadPro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadProActionPerformed(evt);
+            }
+        });
+        jPanelNuevoProducto.add(txtCantidadPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 180, 30));
 
         jPanel4.add(jPanelNuevoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 610));
 
@@ -612,14 +676,11 @@ public class PanelAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Producto", "Precio", "Cantidad", "Medida", "Estado"
+                "Id", "Código", "Descripción", "Stock", "Precio Compra", "Precio Venta", "Estado"
             }
         ));
+        jTablePro.setComponentPopupMenu(jPopupProductos);
         jScrollPane1.setViewportView(jTablePro);
-        if (jTablePro.getColumnModel().getColumnCount() > 0) {
-            jTablePro.getColumnModel().getColumn(4).setHeaderValue("Medida");
-            jTablePro.getColumnModel().getColumn(5).setHeaderValue("Estado");
-        }
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 960, 540));
 
@@ -755,14 +816,11 @@ public class PanelAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Ruc", "Nombre", "Teléfono", "Dirección"
+                "Id", "Ruc", "Nombre", "Teléfono", "Dirección", "Estado"
             }
         ));
+        jTableProveedores.setComponentPopupMenu(jPopupProveedores);
         jScrollPane4.setViewportView(jTableProveedores);
-        if (jTableProveedores.getColumnModel().getColumnCount() > 0) {
-            jTableProveedores.getColumnModel().getColumn(1).setHeaderValue("Usuario");
-            jTableProveedores.getColumnModel().getColumn(4).setHeaderValue("Caja");
-        }
 
         jPanelNuevoProveedor.setBackground(new java.awt.Color(255, 255, 255));
         jPanelNuevoProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nuevo Proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 18))); // NOI18N
@@ -771,14 +829,14 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jLabelRucProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelRucProveedor.setText("Ruc");
-        jPanelNuevoProveedor.add(jLabelRucProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, 30));
+        jPanelNuevoProveedor.add(jLabelRucProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 30));
 
         txtRucProveedor.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoProveedor.add(txtRucProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 210, 30));
+        jPanelNuevoProveedor.add(txtRucProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 210, 30));
 
         jLabelTelefonoProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelTelefonoProveedor.setText("Teléfono");
-        jPanelNuevoProveedor.add(jLabelTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, 30));
+        jPanelNuevoProveedor.add(jLabelTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 90, 30));
 
         txtTelefonoProveedor.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtTelefonoProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -786,37 +844,42 @@ public class PanelAdmin extends javax.swing.JFrame {
                 txtTelefonoProveedorActionPerformed(evt);
             }
         });
-        jPanelNuevoProveedor.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 210, 30));
+        jPanelNuevoProveedor.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 210, 30));
 
         jLabelDireccionProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelDireccionProveedor.setText("Dirección:");
-        jPanelNuevoProveedor.add(jLabelDireccionProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 110, 30));
+        jPanelNuevoProveedor.add(jLabelDireccionProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
 
         btnNuevoProveedor.setBackground(new java.awt.Color(0, 0, 0));
         btnNuevoProveedor.setText("Nuevo");
         btnNuevoProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoProveedor.add(btnNuevoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 90, 30));
+        jPanelNuevoProveedor.add(btnNuevoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 90, 30));
 
         btnModificarProveedor.setBackground(new java.awt.Color(0, 0, 0));
         btnModificarProveedor.setText("Modificar");
         btnModificarProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoProveedor.add(btnModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 90, 30));
+        jPanelNuevoProveedor.add(btnModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 540, 90, 30));
 
         btnRegistrarProveedor.setBackground(new java.awt.Color(0, 0, 0));
         btnRegistrarProveedor.setText("Registrar");
         btnRegistrarProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanelNuevoProveedor.add(btnRegistrarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 90, 30));
+        jPanelNuevoProveedor.add(btnRegistrarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 540, 90, 30));
 
         jScrollPane5.setViewportView(txtDireccionProveedor);
 
-        jPanelNuevoProveedor.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 210, 230));
+        jPanelNuevoProveedor.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 210, 230));
 
         txtNombreProveedor.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanelNuevoProveedor.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 210, 30));
+        jPanelNuevoProveedor.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 210, 30));
 
         jLabelNombreProveedor.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelNombreProveedor.setText("Nombre");
-        jPanelNuevoProveedor.add(jLabelNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 30));
+        jPanelNuevoProveedor.add(jLabelNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 80, 30));
+        jPanelNuevoProveedor.add(txtIdProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, 50, -1));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/lupa.png"))); // NOI18N
+        jPanelNuevoProveedor.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, 30));
+        jPanelNuevoProveedor.add(txtBuscarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 220, 30));
 
         PaginadorProveedor.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -871,7 +934,6 @@ public class PanelAdmin extends javax.swing.JFrame {
             }
         ));
         jTableUsuarios.setComponentPopupMenu(jPopupUsuarios);
-        jTableUsuarios.setRowHeight(20);
         jScrollPane6.setViewportView(jTableUsuarios);
         if (jTableUsuarios.getColumnModel().getColumnCount() > 0) {
             jTableUsuarios.getColumnModel().getColumn(1).setHeaderValue("Usuario");
@@ -1606,6 +1668,10 @@ public class PanelAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevaCategoriaActionPerformed
 
+    private void txtCantidadProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadProActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadProActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PaginadoCompras;
@@ -1622,28 +1688,28 @@ public class PanelAdmin extends javax.swing.JFrame {
     public org.edisoncor.gui.button.ButtonTextDown btnModificarCliente;
     private org.edisoncor.gui.button.ButtonTextDown btnModificarEmpresa;
     public org.edisoncor.gui.button.ButtonTextDown btnModificarMedida;
-    private org.edisoncor.gui.button.ButtonTextDown btnModificarPro;
-    private org.edisoncor.gui.button.ButtonTextDown btnModificarProveedor;
+    public org.edisoncor.gui.button.ButtonTextDown btnModificarPro;
+    public org.edisoncor.gui.button.ButtonTextDown btnModificarProveedor;
     public org.edisoncor.gui.button.ButtonTextDown btnModificarUsuario;
     public org.edisoncor.gui.button.ButtonTextDown btnNuevaCategoria;
     public org.edisoncor.gui.button.ButtonTextDown btnNuevaMedida;
     public org.edisoncor.gui.button.ButtonTextDown btnNuevoCliente;
-    private org.edisoncor.gui.button.ButtonTextDown btnNuevoPro;
-    private org.edisoncor.gui.button.ButtonTextDown btnNuevoProveedor;
+    public org.edisoncor.gui.button.ButtonTextDown btnNuevoPro;
+    public org.edisoncor.gui.button.ButtonTextDown btnNuevoProveedor;
     public org.edisoncor.gui.button.ButtonTextDown btnNuevoUsuario;
     public org.edisoncor.gui.button.ButtonTextDown btnRegistrarCategoria;
     public org.edisoncor.gui.button.ButtonTextDown btnRegistrarCliente;
     public org.edisoncor.gui.button.ButtonTextDown btnRegistrarMedida;
-    private org.edisoncor.gui.button.ButtonTextDown btnRegistrarPro;
-    private org.edisoncor.gui.button.ButtonTextDown btnRegistrarProveedor;
+    public org.edisoncor.gui.button.ButtonTextDown btnRegistrarPro;
+    public org.edisoncor.gui.button.ButtonTextDown btnRegistrarProveedor;
     public org.edisoncor.gui.button.ButtonTextDown btnRegistrarUsuario;
     private org.edisoncor.gui.button.ButtonTextDown btnUsers2;
     public javax.swing.JComboBox<String> jComboCajaUsuario;
-    private javax.swing.JComboBox<String> jComboCategoriaPro;
+    public javax.swing.JComboBox<Object> jComboCategoriaPro;
     private javax.swing.JComboBox<String> jComboClienteNV;
-    private javax.swing.JComboBox<String> jComboMedidaPro;
+    public javax.swing.JComboBox<Object> jComboMedidaPro;
     private javax.swing.JComboBox<String> jComboProveederNC;
-    private javax.swing.JComboBox<String> jComboProveedorPro;
+    public javax.swing.JComboBox<Object> jComboProveedorPro;
     public javax.swing.JComboBox<String> jComboRolUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1664,6 +1730,8 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1672,6 +1740,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCajaUsuario1;
+    private javax.swing.JLabel jLabelCantidad;
     private javax.swing.JLabel jLabelCategoria;
     public javax.swing.JLabel jLabelClientes;
     private javax.swing.JLabel jLabelCodigo;
@@ -1711,10 +1780,14 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JMenuItem jMenuEliminarCategoria;
     public javax.swing.JMenuItem jMenuEliminarCliente;
     public javax.swing.JMenuItem jMenuEliminarMedida;
+    public javax.swing.JMenuItem jMenuEliminarPro;
+    public javax.swing.JMenuItem jMenuEliminarProveedor;
     public javax.swing.JMenuItem jMenuEliminarUser;
     public javax.swing.JMenuItem jMenuReingresarCategoria;
     public javax.swing.JMenuItem jMenuReingresarCliente;
     public javax.swing.JMenuItem jMenuReingresarMedida;
+    public javax.swing.JMenuItem jMenuReingresarPro;
+    public javax.swing.JMenuItem jMenuReingresarProveedor;
     public javax.swing.JMenuItem jMenuReingresarUser;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1750,6 +1823,8 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JPopupMenu jPopupCategorias;
     public javax.swing.JPopupMenu jPopupClientes;
     public javax.swing.JPopupMenu jPopupMedidas;
+    public javax.swing.JPopupMenu jPopupProductos;
+    public javax.swing.JPopupMenu jPopupProveedores;
     private javax.swing.JPopupMenu jPopupUsuarios;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
@@ -1771,8 +1846,8 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTable jTableMedidas;
     private javax.swing.JTable jTableNuevaCompra;
     private javax.swing.JTable jTableNuevaVenta;
-    private javax.swing.JTable jTablePro;
-    private javax.swing.JTable jTableProveedores;
+    public javax.swing.JTable jTablePro;
+    public javax.swing.JTable jTableProveedores;
     public javax.swing.JTable jTableUsuarios;
     private javax.swing.JTable jTableVentas;
     public javax.swing.JLabel jlabelCategorias;
@@ -1781,22 +1856,27 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTextField txtBuscarCategoria;
     public javax.swing.JTextField txtBuscarCliente;
     public javax.swing.JTextField txtBuscarMedida;
+    public javax.swing.JTextField txtBuscarPro;
+    public javax.swing.JTextField txtBuscarProveedor;
     public javax.swing.JTextField txtBuscarUser;
     private javax.swing.JTextField txtCambioNC;
     private javax.swing.JTextField txtCambioNV;
     private javax.swing.JTextField txtCantNC;
     private javax.swing.JTextField txtCantNV;
+    public javax.swing.JTextField txtCantidadPro;
     public javax.swing.JPasswordField txtClaveUsuario;
     private javax.swing.JTextField txtCodNC;
     private javax.swing.JTextField txtCodNV;
-    private javax.swing.JTextField txtCodigoPro;
-    private javax.swing.JTextField txtDescripcionPro;
+    public javax.swing.JTextField txtCodigoPro;
+    public javax.swing.JTextField txtDescripcionPro;
     public javax.swing.JTextPane txtDireccionCliente;
     private javax.swing.JTextPane txtDireccionEmpresa;
-    private javax.swing.JTextPane txtDireccionProveedor;
+    public javax.swing.JTextPane txtDireccionProveedor;
     public javax.swing.JTextField txtIdCategoria;
     public javax.swing.JTextField txtIdCliente;
     public javax.swing.JTextField txtIdMedida;
+    public javax.swing.JTextField txtIdPro;
+    public javax.swing.JTextField txtIdProveedor;
     public javax.swing.JTextField txtIdUser;
     private javax.swing.JTextPane txtMensajeEmpresa;
     public javax.swing.JTextField txtNombreCategoria;
@@ -1804,22 +1884,22 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTextField txtNombreCortoMedida;
     private javax.swing.JTextField txtNombreEmpresa;
     public javax.swing.JTextField txtNombreMedida;
-    private javax.swing.JTextField txtNombreProveedor;
+    public javax.swing.JTextField txtNombreProveedor;
     public javax.swing.JTextField txtNombreUsuario;
     private javax.swing.JTextField txtPagarNC;
     private javax.swing.JTextField txtPagarNV;
-    private javax.swing.JTextField txtPrecioCompraPro;
+    public javax.swing.JTextField txtPrecioCompraPro;
     private javax.swing.JTextField txtPrecioNC;
     private javax.swing.JTextField txtPrecioNV;
-    private javax.swing.JTextField txtPrecioVentaPro;
+    public javax.swing.JTextField txtPrecioVentaPro;
     private javax.swing.JTextField txtProductoNC;
     private javax.swing.JTextField txtProductoNV;
     private javax.swing.JTextField txtRucEmpresa;
-    private javax.swing.JTextField txtRucProveedor;
+    public javax.swing.JTextField txtRucProveedor;
     private javax.swing.JTextField txtStockNV;
     public javax.swing.JTextField txtTelefonoCliente;
     private javax.swing.JTextField txtTelefonoEmpresa;
-    private javax.swing.JTextField txtTelefonoProveedor;
+    public javax.swing.JTextField txtTelefonoProveedor;
     private javax.swing.JTextField txtTotalNC;
     private javax.swing.JTextField txtTotalNV;
     public javax.swing.JTextField txtUsuario;
