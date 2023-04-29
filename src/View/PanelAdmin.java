@@ -278,11 +278,12 @@ public class PanelAdmin extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jComboProveederNC = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
-        txtPagarNC = new javax.swing.JTextField();
+        txtPagarConNC = new javax.swing.JTextField();
         txtCambioNC = new javax.swing.JTextField();
         jLabelTotalPagarNC = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        txtIdNC = new javax.swing.JTextField();
         btnUsers2 = new org.edisoncor.gui.button.ButtonTextDown();
         jLabel17 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -550,8 +551,8 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Punto De Venta");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jLabel1.setText("Sistema De Venta");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 100));
 
@@ -1524,7 +1525,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 btnGenerarNCActionPerformed(evt);
             }
         });
-        jPanel15.add(btnGenerarNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 90, 30));
+        jPanel15.add(btnGenerarNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 40, 90, 40));
 
         txtTotalNC.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtTotalNC.addActionListener(new java.awt.event.ActionListener() {
@@ -1555,6 +1556,7 @@ public class PanelAdmin extends javax.swing.JFrame {
         jLabel18.setText("Código");
         jPanel15.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        jComboProveederNC.setEditable(true);
         jComboProveederNC.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jPanel15.add(jComboProveederNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 540, 190, -1));
 
@@ -1562,8 +1564,8 @@ public class PanelAdmin extends javax.swing.JFrame {
         jLabel19.setText("Cambio");
         jPanel15.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 540, -1, -1));
 
-        txtPagarNC.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanel15.add(txtPagarNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 540, 150, -1));
+        txtPagarConNC.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel15.add(txtPagarConNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 540, 150, -1));
 
         txtCambioNC.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtCambioNC.addActionListener(new java.awt.event.ActionListener() {
@@ -1573,19 +1575,22 @@ public class PanelAdmin extends javax.swing.JFrame {
         });
         jPanel15.add(txtCambioNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 540, 150, -1));
 
-        jLabelTotalPagarNC.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabelTotalPagarNC.setText("-----------------");
-        jPanel15.add(jLabelTotalPagarNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 530, 220, 30));
+        jLabelTotalPagarNC.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelTotalPagarNC.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabelTotalPagarNC.setForeground(new java.awt.Color(0, 204, 0));
+        jLabelTotalPagarNC.setText("-------");
+        jPanel15.add(jLabelTotalPagarNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 540, 180, 20));
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel20.setText("Total Pagar");
+        jLabel20.setText("Total Pagar: ");
         jPanel15.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 540, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel21.setText("Pagar con");
         jPanel15.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 540, -1, -1));
+        jPanel15.add(txtIdNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 50, 80, -1));
 
-        tabbedPaneHeader.addTab("tab12", jPanel15);
+        tabbedPaneHeader.addTab("Nueva Compra", jPanel15);
 
         jPanel3.add(tabbedPaneHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1290, 640));
 
@@ -1599,8 +1604,8 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("Punto de Venta Java");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 330, 40));
+        jLabel22.setText("Sistema de Venta Java");
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 370, 40));
         jLabel22.getAccessibleContext().setAccessibleDescription("");
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1290, 740));
@@ -1682,7 +1687,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel PaginadorPro;
     private javax.swing.JPanel PaginadorProveedor;
     private javax.swing.JPanel PaginadorUsuarios;
-    private org.edisoncor.gui.button.ButtonTextDown btnGenerarNC;
+    public org.edisoncor.gui.button.ButtonTextDown btnGenerarNC;
     private org.edisoncor.gui.button.ButtonTextDown btnGenerarNV;
     public org.edisoncor.gui.button.ButtonTextDown btnModificarCategoria;
     public org.edisoncor.gui.button.ButtonTextDown btnModificarCliente;
@@ -1708,7 +1713,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JComboBox<Object> jComboCategoriaPro;
     private javax.swing.JComboBox<String> jComboClienteNV;
     public javax.swing.JComboBox<Object> jComboMedidaPro;
-    private javax.swing.JComboBox<String> jComboProveederNC;
+    public javax.swing.JComboBox<Object> jComboProveederNC;
     public javax.swing.JComboBox<Object> jComboProveedorPro;
     public javax.swing.JComboBox<String> jComboRolUsuario;
     private javax.swing.JLabel jLabel1;
@@ -1773,7 +1778,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTelefonoCliente;
     private javax.swing.JLabel jLabelTelefonoEmpresa;
     private javax.swing.JLabel jLabelTelefonoProveedor;
-    private javax.swing.JLabel jLabelTotalPagarNC;
+    public javax.swing.JLabel jLabelTotalPagarNC;
     private javax.swing.JLabel jLabelTotalPagarNV;
     private javax.swing.JLabel jLabelUsuario;
     public javax.swing.JLabel jLabelUsuarios;
@@ -1844,7 +1849,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableCompras;
     public javax.swing.JTable jTableMedidas;
-    private javax.swing.JTable jTableNuevaCompra;
+    public javax.swing.JTable jTableNuevaCompra;
     private javax.swing.JTable jTableNuevaVenta;
     public javax.swing.JTable jTablePro;
     public javax.swing.JTable jTableProveedores;
@@ -1859,13 +1864,13 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTextField txtBuscarPro;
     public javax.swing.JTextField txtBuscarProveedor;
     public javax.swing.JTextField txtBuscarUser;
-    private javax.swing.JTextField txtCambioNC;
+    public javax.swing.JTextField txtCambioNC;
     private javax.swing.JTextField txtCambioNV;
-    private javax.swing.JTextField txtCantNC;
+    public javax.swing.JTextField txtCantNC;
     private javax.swing.JTextField txtCantNV;
     public javax.swing.JTextField txtCantidadPro;
     public javax.swing.JPasswordField txtClaveUsuario;
-    private javax.swing.JTextField txtCodNC;
+    public javax.swing.JTextField txtCodNC;
     private javax.swing.JTextField txtCodNV;
     public javax.swing.JTextField txtCodigoPro;
     public javax.swing.JTextField txtDescripcionPro;
@@ -1875,6 +1880,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTextField txtIdCategoria;
     public javax.swing.JTextField txtIdCliente;
     public javax.swing.JTextField txtIdMedida;
+    public javax.swing.JTextField txtIdNC;
     public javax.swing.JTextField txtIdPro;
     public javax.swing.JTextField txtIdProveedor;
     public javax.swing.JTextField txtIdUser;
@@ -1886,13 +1892,13 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTextField txtNombreMedida;
     public javax.swing.JTextField txtNombreProveedor;
     public javax.swing.JTextField txtNombreUsuario;
-    private javax.swing.JTextField txtPagarNC;
+    public javax.swing.JTextField txtPagarConNC;
     private javax.swing.JTextField txtPagarNV;
     public javax.swing.JTextField txtPrecioCompraPro;
-    private javax.swing.JTextField txtPrecioNC;
+    public javax.swing.JTextField txtPrecioNC;
     private javax.swing.JTextField txtPrecioNV;
     public javax.swing.JTextField txtPrecioVentaPro;
-    private javax.swing.JTextField txtProductoNC;
+    public javax.swing.JTextField txtProductoNC;
     private javax.swing.JTextField txtProductoNV;
     private javax.swing.JTextField txtRucEmpresa;
     public javax.swing.JTextField txtRucProveedor;
@@ -1900,7 +1906,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     public javax.swing.JTextField txtTelefonoCliente;
     private javax.swing.JTextField txtTelefonoEmpresa;
     public javax.swing.JTextField txtTelefonoProveedor;
-    private javax.swing.JTextField txtTotalNC;
+    public javax.swing.JTextField txtTotalNC;
     private javax.swing.JTextField txtTotalNV;
     public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

@@ -43,7 +43,9 @@ public class ProveedoresController implements ActionListener, MouseListener, Key
         this.views.jLabelProveedores.addMouseListener(this);
         
         llenarProveedor();
+        llenarProveedorNC();
         AutoCompleteDecorator.decorate(views.jComboProveedorPro);
+        AutoCompleteDecorator.decorate(views.jComboProveederNC);
     }
 
     @Override
@@ -239,6 +241,16 @@ public class ProveedoresController implements ActionListener, MouseListener, Key
            int id = lista.get(i).getId();
            String nombre = lista.get(i).getNombre();
            views.jComboProveedorPro.addItem(new Combo(id, nombre));          
+        }  
+    }
+    
+    private void llenarProveedorNC(){
+        List<Proveedores> lista = provDao.listaProveedores(views.txtBuscarProveedor.getText());
+       
+        for (int i = 0; i < lista.size(); i++) {
+           int id = lista.get(i).getId();
+           String nombre = lista.get(i).getNombre();
+           views.jComboProveederNC.addItem(new Combo(id, nombre));          
         }  
     }
     

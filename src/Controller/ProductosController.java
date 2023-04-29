@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +24,6 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
     private PanelAdmin views;
     DefaultTableModel modelo = new DefaultTableModel();
     
-
     public ProductosController(Productos prod, ProductosDao prodDao, PanelAdmin views) {
         this.prod = prod;
         this.prodDao = prodDao;
@@ -41,6 +41,9 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
         
         this.views.jLabelProductos.addMouseListener(this);
         
+        this.views.txtCodNC.addKeyListener(this); 
+        this.views.txtCantNC.addKeyListener(this);
+         this.views.txtPagarConNC.addKeyListener(this);
     }
     
     @Override
@@ -179,8 +182,7 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
         JTableHeader header = views.jTablePro.getTableHeader();
         header.setOpaque(false);
         header.setBackground(Color.blue);
-        header.setForeground(Color.white);
-        
+        header.setForeground(Color.white);       
     }
     
     public void limpiarTable(){
@@ -241,7 +243,53 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
 
     @Override
     public void keyPressed(KeyEvent e) {
-       
+        if (e.getSource() == views.txtCodNC) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (views.txtCodNC.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Ingrese el código");
+                }else{
+                    String cod = views.txtCodNC.getText();
+                    prod = prodDao.buscarCodigo(cod);
+                    views.txtIdNC.setText(""+prod.getId());
+                    views.txtProductoNC.setText(prod.getDescripcion());
+                    views.txtPrecioNC.setText(""+prod.getPrecio_compra());
+                    views.txtCantNC.requestFocus();
+                }
+            }
+        }else
+            if(e.getSource() == views.txtCantNC){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    int cant = Integer.parseInt(views.txtCantNC.getText());
+                    String desc = views.txtProductoNC.getText();
+                    double precio = Double.parseDouble(views.txtPrecioNC.getText());
+                    int id = Integer.parseInt(views.txtIdNC.getText());
+                    
+                    if (cant > 0) {
+                        DefaultTableModel tmp = (DefaultTableModel) views.jTableNuevaCompra.getModel();
+                        ArrayList lista = new ArrayList();
+                        int item = 1;
+                        lista.add(item);
+                        lista.add(id);
+                        lista.add(desc);
+                        lista.add(cant);
+                        lista.add(precio);
+                        lista.add(cant * precio);
+                        
+                        Object[] obj = new Object[5];
+                        obj[0] = lista.get(1);
+                        obj[1] = lista.get(2);
+                        obj[2] = lista.get(3);
+                        obj[3] = lista.get(4);
+                        obj[4] = lista.get(5);
+                        tmp.addRow(obj);
+                        views.jTableNuevaCompra.setModel(tmp);
+                        limpiarCamposNC();
+                         calcularCompra();
+                        views.txtCodNC.requestFocus();
+                    }
+                
+                }
+            }
     }
 
     @Override
@@ -249,8 +297,30 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
         if (e.getSource() == views.txtBuscarPro) {
             limpiarTable();
             listarProductos();
-        } else {
-        }
+        } else 
+            if(e.getSource() == views.txtCantNC){
+                int cantidad;
+                double precio;
+                if (views.txtCantNC.getText().equals("")) {
+                    cantidad = 1;
+                     precio = Double.parseDouble(views.txtPrecioNC.getText());
+                     views.txtTotalNC.setText(""+precio);
+                }else{
+                    cantidad = Integer.parseInt(views.txtCantNC.getText());
+                    precio = Double.parseDouble(views.txtPrecioNC.getText());
+                    views.txtTotalNC.setText(""+ cantidad * precio);
+                }
+        }else
+            if (e.getSource() == views.txtPagarConNC) {
+                int pagar;
+                if (views.txtPagarConNC.getText().equals("")) {
+                    views.txtCambioNC.setText(""); 
+                }else{
+                    pagar = Integer.parseInt(views.txtPagarConNC.getText());
+                    double total = Double.parseDouble(views.jLabelTotalPagarNC.getText());
+                    views.txtCambioNC.setText(""+(pagar - total)); //calculando cambio
+                }
+            }
     }
     
     private void limpiar(){
@@ -260,6 +330,25 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
         views.txtPrecioCompraPro.setText("");
         views.txtPrecioVentaPro.setText("");
         views.txtIdPro.setText("");
+    }
+    
+    private void limpiarCamposNC(){
+        views.txtCodNC.setText("");
+        views.txtIdNC.setText("");
+        views.txtProductoNC.setText("");
+        views.txtCantNC.setText("");
+        views.txtPrecioNC.setText("");
+        views.txtTotalNC.setText("");
+    }
+    
+    private void calcularCompra(){//calcular tota a pagar y sumarlo
+        double total = 0.00;
+        int numFila = views.jTableNuevaCompra.getRowCount();
+        
+        for (int i = 0; i < numFila; i++) {
+            total = total + Double.parseDouble(String.valueOf(views.jTableNuevaCompra.getValueAt(i, 4)));            
+        }
+        views.jLabelTotalPagarNC.setText(""+total);
     }
     
 }
