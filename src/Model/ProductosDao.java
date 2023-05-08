@@ -174,6 +174,76 @@ public class ProductosDao {
         return pro;
     }
     
+    public boolean registrarCompra(int id, String total){
+        String sql = "INSERT INTO compras (id_proveedor, total) VALUES (?,?)";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setString(2, total);
+            ps.execute();
+            return true;
+           
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+             return false;
+        }
+       
+    }
+    
+    public boolean registrarCompraDetalle(int id_compra, double precio, int cantidad, double subtotal){
+        String sql = "INSERT INTO detalle_compra (id_compra, precio, cantidad, subtotal) VALUES (?,?,?,?)";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id_compra);
+            ps.setDouble(2, precio);
+            ps.setInt(3,cantidad);
+            ps.setDouble(4, subtotal);
+            ps.execute();
+            return true;  
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+             return false;
+        }
+    }
+    
+     public Productos buscarId(int id){
+        String sql = "SELECT * FROM productos WHERE id = ?";  
+        Productos pro = new Productos();
+        
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql); 
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                pro.setCantidad(rs.getInt("cantidad"));    
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        return pro;
+    }
+    
+    public boolean actualizarStock (int cant, int id){
+       String sql ="UPDATE productos SET cantidad = ? WHERE id = ?";
+       
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, cant);
+            ps.setInt(2, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+            return false;
+        }
+    }
+    
     
     
 }

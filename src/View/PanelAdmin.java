@@ -561,6 +561,8 @@ public class PanelAdmin extends javax.swing.JFrame {
         jPanel3.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 30, 180, 40));
 
         tabbedPaneHeader.setBackground(new java.awt.Color(255, 255, 255));
+        tabbedPaneHeader.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tabbedPaneHeader.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -700,7 +702,7 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jPanel4.add(PaginadorPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 550, 960, 60));
 
-        tabbedPaneHeader.addTab("tab1", jPanel4);
+        tabbedPaneHeader.addTab("Productos", jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -807,7 +809,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        tabbedPaneHeader.addTab("tab2", jPanel5);
+        tabbedPaneHeader.addTab("Clientes", jPanel5);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -921,7 +923,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        tabbedPaneHeader.addTab("tab3", jPanel6);
+        tabbedPaneHeader.addTab("Proveedores", jPanel6);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1047,7 +1049,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        tabbedPaneHeader.addTab("tab4", jPanel7);
+        tabbedPaneHeader.addTab("Usuarios", jPanel7);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1145,7 +1147,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        tabbedPaneHeader.addTab("tab5", jPanel8);
+        tabbedPaneHeader.addTab("Categorías", jPanel8);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1239,7 +1241,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        tabbedPaneHeader.addTab("tab6", jPanel9);
+        tabbedPaneHeader.addTab("Medidas", jPanel9);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1465,7 +1467,7 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jPanel13.add(jPanelNuevosDatosEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 610));
 
-        tabbedPaneHeader.addTab("tab10", jPanel13);
+        tabbedPaneHeader.addTab("Configuración", jPanel13);
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1477,7 +1479,7 @@ public class PanelAdmin extends javax.swing.JFrame {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+            .addGap(0, 608, Short.MAX_VALUE)
         );
 
         tabbedPaneHeader.addTab("tab11", jPanel14);

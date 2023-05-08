@@ -23,6 +23,7 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
     private ProductosDao prodDao;
     private PanelAdmin views;
     DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel tmp;
     
     public ProductosController(Productos prod, ProductosDao prodDao, PanelAdmin views) {
         this.prod = prod;
@@ -31,6 +32,7 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
         this.views.btnRegistrarPro.addActionListener(this);
         this.views.btnModificarPro.addActionListener(this);
         this.views.btnNuevoPro.addActionListener(this);
+        this.views.btnGenerarNC.addActionListener(this);
         
         this.views.jMenuEliminarPro.addActionListener(this);
         this.views.jMenuReingresarPro.addActionListener(this);
@@ -43,7 +45,7 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
         
         this.views.txtCodNC.addKeyListener(this); 
         this.views.txtCantNC.addKeyListener(this);
-         this.views.txtPagarConNC.addKeyListener(this);
+        this.views.txtPagarConNC.addKeyListener(this);
     }
     
     @Override
@@ -153,8 +155,11 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
                 }
 
             }
+        }else
+        if(e.getSource()== views.btnGenerarNC){
+            insertarCompra();
         }else{
-            limpiar();
+            
         }
 
     }
@@ -265,7 +270,7 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
                     int id = Integer.parseInt(views.txtIdNC.getText());
                     
                     if (cant > 0) {
-                        DefaultTableModel tmp = (DefaultTableModel) views.jTableNuevaCompra.getModel();
+                        tmp = (DefaultTableModel) views.jTableNuevaCompra.getModel();
                         ArrayList lista = new ArrayList();
                         int item = 1;
                         lista.add(item);
@@ -349,6 +354,39 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
             total = total + Double.parseDouble(String.valueOf(views.jTableNuevaCompra.getValueAt(i, 4)));            
         }
         views.jLabelTotalPagarNC.setText(""+total);
+    }
+    
+    private void insertarCompra(){
+        Combo id_p = (Combo) views.jComboProveederNC.getSelectedItem();
+        int id_proveedor = id_p.getId();
+        String total = views.jLabelTotalPagarNC.getText();
+        
+        if (prodDao.registrarCompra(id_proveedor, total)) {
+            for (int i = 0; i < views.jTableNuevaCompra.getRowCount(); i++) {
+                int id_compra = 1;
+                double precio = Double.parseDouble(views.jTableNuevaCompra.getValueAt(i, 3).toString());
+                int cantidad = Integer.parseInt(views.jTableNuevaCompra.getValueAt(i, 2).toString());
+                int id = Integer.parseInt(views.jTableNuevaCompra.getValueAt(i, 0).toString());
+                 
+                double sub_total = precio * cantidad;
+                
+                prodDao.registrarCompraDetalle(id_compra, precio, cantidad, sub_total);
+                prod = prodDao.buscarId(id);
+                int stockActual = prod.getCantidad() + cantidad;
+                prodDao.actualizarStock(stockActual, id);
+            }
+            limpiarTableDetalle();
+            JOptionPane.showMessageDialog(null, "Compra generada");
+            
+        }
+        
+    }
+    
+    public void limpiarTableDetalle(){
+        for (int i = 0; i < tmp.getRowCount(); i++) {
+            tmp.removeRow(i);
+            i = i - 1;
+        }
     }
     
 }
