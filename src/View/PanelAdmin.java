@@ -260,7 +260,6 @@ public class PanelAdmin extends javax.swing.JFrame {
         jScrollPane13 = new javax.swing.JScrollPane();
         txtMensajeEmpresa = new javax.swing.JTextPane();
         jLabelDireccionEmpresa1 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         jTableNuevaCompra = new javax.swing.JTable();
@@ -284,6 +283,8 @@ public class PanelAdmin extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         txtIdNC = new javax.swing.JTextField();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
         btnUsers2 = new org.edisoncor.gui.button.ButtonTextDown();
         jLabel17 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -1344,7 +1345,7 @@ public class PanelAdmin extends javax.swing.JFrame {
         jLabel11.setText("Pagar con");
         jPanel10.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, -1, -1));
 
-        tabbedPaneHeader.addTab("tab7", jPanel10);
+        tabbedPaneHeader.addTab("Nueva Venta", jPanel10);
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1376,7 +1377,7 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jPanel11.add(PaginadoVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 1270, 80));
 
-        tabbedPaneHeader.addTab("tab8", jPanel11);
+        tabbedPaneHeader.addTab("Ventas", jPanel11);
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1408,7 +1409,7 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jPanel12.add(PaginadoCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 1270, 80));
 
-        tabbedPaneHeader.addTab("tab9", jPanel12);
+        tabbedPaneHeader.addTab("Compras", jPanel12);
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1468,21 +1469,6 @@ public class PanelAdmin extends javax.swing.JFrame {
         jPanel13.add(jPanelNuevosDatosEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 610));
 
         tabbedPaneHeader.addTab("Configuración", jPanel13);
-
-        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1290, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
-        );
-
-        tabbedPaneHeader.addTab("tab11", jPanel14);
 
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
         jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1579,7 +1565,7 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jLabelTotalPagarNC.setBackground(new java.awt.Color(255, 255, 255));
         jLabelTotalPagarNC.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabelTotalPagarNC.setForeground(new java.awt.Color(0, 204, 0));
+        jLabelTotalPagarNC.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTotalPagarNC.setText("-------");
         jPanel15.add(jLabelTotalPagarNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 540, 180, 20));
 
@@ -1593,6 +1579,36 @@ public class PanelAdmin extends javax.swing.JFrame {
         jPanel15.add(txtIdNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 50, 80, -1));
 
         tabbedPaneHeader.addTab("Nueva Compra", jPanel15);
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1290, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 610, Short.MAX_VALUE)
+        );
+
+        tabbedPaneHeader.addTab("Cajas", jPanel14);
+
+        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1290, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 610, Short.MAX_VALUE)
+        );
+
+        tabbedPaneHeader.addTab("Apertura y Cierre", jPanel16);
 
         jPanel3.add(tabbedPaneHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1290, 640));
 
@@ -1803,6 +1819,7 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
