@@ -8,6 +8,6 @@ Dentro de las características de uso del sistema se encuentran: login para inic
 las secciones con CRUD para ventas, compras, productos, clientes, proveedores, medidas de productos,
 categorías, configuración y gestión de usuarios.
 
-<img src="Img/img_ilustrativa1.png">
-<img src="Img/img_ilustrativa2.png">
-<img src="Img/img_ilustrativa3.png">
+<img src="src/Img/img_ilustrativa1.png">
+<img src="src/Img/img_ilustrativa2.png">
+<img src="src/Img/img_ilustrativa3.png">
