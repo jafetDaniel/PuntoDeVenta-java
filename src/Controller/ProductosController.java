@@ -5,6 +5,7 @@ import Model.Tables;
 import Model.Productos;
 import Model.ProductosDao;
 import View.PanelAdmin;
+import View.Print;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -362,21 +363,24 @@ public class ProductosController implements ActionListener, MouseListener, KeyLi
         String total = views.jLabelTotalPagarNC.getText();
         
         if (prodDao.registrarCompra(id_proveedor, total)) {
+             int id_compra = prodDao.id_compra();
             for (int i = 0; i < views.jTableNuevaCompra.getRowCount(); i++) {
-                int id_compra = 1;
+               
                 double precio = Double.parseDouble(views.jTableNuevaCompra.getValueAt(i, 3).toString());
                 int cantidad = Integer.parseInt(views.jTableNuevaCompra.getValueAt(i, 2).toString());
                 int id = Integer.parseInt(views.jTableNuevaCompra.getValueAt(i, 0).toString());
                  
                 double sub_total = precio * cantidad;
                 
-                prodDao.registrarCompraDetalle(id_compra, precio, cantidad, sub_total);
+                prodDao.registrarCompraDetalle(id_compra, id, precio, cantidad, sub_total);
                 prod = prodDao.buscarId(id);
                 int stockActual = prod.getCantidad() + cantidad;
                 prodDao.actualizarStock(stockActual, id);
             }
             limpiarTableDetalle();
             JOptionPane.showMessageDialog(null, "Compra generada");
+            Print p = new Print(id_compra);
+            p.setVisible(true);
             
         }
         

@@ -191,15 +191,16 @@ public class ProductosDao {
        
     }
     
-    public boolean registrarCompraDetalle(int id_compra, double precio, int cantidad, double subtotal){
-        String sql = "INSERT INTO detalle_compra (id_compra, precio, cantidad, subtotal) VALUES (?,?,?,?)";
+    public boolean registrarCompraDetalle(int id_compra, int id, double precio, int cantidad, double subtotal){
+        String sql = "INSERT INTO detalle_compra (id_compra, id_producto, precio, cantidad, subtotal) VALUES (?,?,?,?,?)";
         try {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id_compra);
-            ps.setDouble(2, precio);
-            ps.setInt(3,cantidad);
-            ps.setDouble(4, subtotal);
+            ps.setInt(2, id);
+            ps.setDouble(3, precio);
+            ps.setInt(4,cantidad);
+            ps.setDouble(5, subtotal);
             ps.execute();
             return true;  
         } catch (SQLException e) {
@@ -242,6 +243,51 @@ public class ProductosDao {
             JOptionPane.showMessageDialog(null, e.toString());
             return false;
         }
+    }
+    
+    public int id_compra(){
+        int id = 0;
+        String sql = "SELECT MAX(id) AS id FROM compras";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+            
+            if (rs.next()) {
+                id = rs.getInt("id");
+            } else {
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
+    
+    public List listaDetalle(int id_compra){
+        List<Productos> listaProd = new ArrayList();
+        
+        String sql = "SELECT c.*, d.*, p.id, p.descripcion FROM compras c INNER JOIN detalle_compra d ON d.id_compra = c.id INNER JOIN productos p ON p.id = d.id_producto WHERE c.id =?";
+        
+        try {
+            con = cn.getConexion(); 
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id_compra);
+            rs = ps.executeQuery();
+                    
+            while (rs.next()) {
+                Productos prod = new Productos();
+                prod.setCantidad(rs.getInt("cantidad"));
+                prod.setDescripcion(rs.getString("descripcion"));
+                prod.setPrecio_compra(rs.getDouble("precio"));
+                prod.setPrecio_venta(rs.getDouble("subtotal"));
+                
+                listaProd.add(prod);  
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        return listaProd;
     }
     
     
